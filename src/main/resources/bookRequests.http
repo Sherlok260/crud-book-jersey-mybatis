@@ -1,0 +1,48 @@
+POST http://localhost:8082/webapi/books/testPost
+Content-Type: application/json
+
+{
+  "name": "Shaxzod",
+  "age": 23
+}
+
+###
+GET http://localhost:8082/webapi/books/getAll
+Accept: application/json
+
+###
+
+GET http://localhost:8082/webapi/books/get/20
+Accept: application/json
+
+
+###
+POST http://localhost:8082/webapi/books/addBook
+Content-Type: application/json
+
+{
+  "name": "Sherlock Holmes",
+  "category": "Detective",
+  "price": 100,
+  "author": "Arthur",
+  "year": 1900
+}
+###
+
+
+PUT http://localhost:8082/webapi/books/editBook
+Content-Type: application/json
+
+{
+  "id": 19,
+  "name": "Sherlock Holmes",
+  "category": "Detective",
+  "price": 100,
+  "author": "Arthur",
+  "year": 1902
+}
+
+###
+
+DELETE http://localhost:8082/webapi/books/delete/1
+Content-Type: application/json

@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.jersey_todo.mapper.BookMapper">
+
+    <select id="getAll" resultType="com.example.jersey_todo.tables.Book">
+        SELECT * FROM books
+    </select>
+
+    <select id="getById" resultType="com.example.jersey_todo.tables.Book">
+        SELECT * FROM books WHERE id = #{id}
+    </select>
+
+    <insert id="saveBook" parameterType="com.example.jersey_todo.payload.BookDto">
+        INSERT INTO books(name, category, price, author, year, created) values (#{name}, #{category}, #{price}, #{author}, #{year}, LOCALTIMESTAMP)
+    </insert>
+
+    <update id="updateBook" parameterType="com.example.jersey_todo.payload.BookDto">
+        update books set name= #{name}, category= #{category}, price = #{price}, author = #{author}, year = #{year},  created = LOCALTIMESTAMP where id = #{id}
+    </update>
+
+    <delete id="deleteBook">
+        delete from books where id = #{id}
+    </delete>
+
+    <select id="pagination" resultType="com.example.jersey_todo.tables.Book">
+        SELECT * FROM books limit ${@com.example.jersey_todo.utills.StaticVariables@pageSize} offset (#{pageNumber} - 1) * ${@com.example.jersey_todo.utills.StaticVariables@pageSize}
+    </select>
+
+    <select id="search" resultType="com.example.jersey_todo.tables.Book">
+        SELECT * FROM books WHERE name ILIKE '%' || #{query} || '%' LIMIT ${@com.example.jersey_todo.utills.StaticVariables@pageSize} OFFSET (#{pageNumber} - 1) * ${@com.example.jersey_todo.utills.StaticVariables@pageSize}
+    </select>
+
+    <select id="allPagesCount">
+        select ceil(1.0*count(*)/${@com.example.jersey_todo.utills.StaticVariables@pageSize}) from books;
+    </select>
+
+    <select id="searchPagesCount">
+        SELECT ceil(1.0*count(*)/${@com.example.jersey_todo.utills.StaticVariables@pageSize}) FROM books WHERE name ILIKE '%'|| #{query} || '%'
+    </select>
+
+</mapper>
